@@ -213,7 +213,7 @@ class ContainerViewModel: NSObject, ObservableObject {
     func acceptProof() {
         execute { weakSelf in
             let credentials = try await SparsaMobile.getCredentials()
-            weakSelf.showBottomSheet(items: credentials.map { $0.schema }, selectable: true)
+            weakSelf.showBottomSheet(items: credentials.map { $0.schema ?? "" }, selectable: true)
             if let selectedCredentialName = await weakSelf.waitForUserSelection() {
                 if let selectedCredential = credentials.first(where: { $0.schema == selectedCredentialName }),
                    let identifier = selectedCredential.identifier {

@@ -39,7 +39,6 @@ extension ContainerViewModel {
     }
     
     func showBottomSheet(items: [String], selectable: Bool = false) {
-        sleep(1)
         DispatchQueue.main.async { [weak self] in
             self?.uiState.chooserList = items
             self?.uiState.selectableItems = selectable

@@ -7,32 +7,54 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0DCBFC2D2EE5CD0700DE764A /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 0DCBFC2C2EE5CD0700DE764A /* FirebaseMessaging */; };
 		661116002C638D58006A716C /* ButtonModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 661115FF2C638D58006A716C /* ButtonModel.swift */; };
 		664FA20F2C770DCB00034305 /* QRScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 664FA20D2C770D2B00034305 /* QRScannerViewController.swift */; };
+		6664E90D2EDDE2E00076E47F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6664E90C2EDDE2D00076E47F /* GoogleService-Info.plist */; };
+		6674C7312ED9B7CF009A3153 /* UIState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6674C7302ED9B7CF009A3153 /* UIState.swift */; };
 		667567A32C2EA0A9001490EE /* ContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 667567A22C2EA0A9001490EE /* ContainerView.swift */; };
 		667567A72C2EAB76001490EE /* ContainerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 667567A62C2EAB76001490EE /* ContainerViewModel.swift */; };
 		667567AD2C2EBBBC001490EE /* SparsaApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 667567AC2C2EBBBC001490EE /* SparsaApp.swift */; };
 		667CCB8E2CCA2A1600365F98 /* UIApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 667CCB8D2CCA2A1600365F98 /* UIApplication.swift */; };
-		66B52BAA2EC4F24200BAE72E /* UIState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66B52BA92EC4F24200BAE72E /* UIState.swift */; };
 		66B52BAC2EC4F28F00BAE72E /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66B52BAB2EC4F28F00BAE72E /* Helpers.swift */; };
 		66B6609B2C64E6E600EF379B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 66B6609A2C64E6E600EF379B /* LaunchScreen.storyboard */; };
+		66BCDDC62ED9999E00E8C74F /* SparsaMobile.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 66BCDDC52ED9999E00E8C74F /* SparsaMobile.xcframework */; };
+		66BCDDC72ED9999E00E8C74F /* SparsaMobile.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 66BCDDC52ED9999E00E8C74F /* SparsaMobile.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		66D65A432CBF91AC00CB257C /* ChooserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66D65A422CBF91AC00CB257C /* ChooserView.swift */; };
+		E4B5E7422BF34BB900688B6F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B5E7412BF34BB900688B6F /* AppDelegate.swift */; };
 		E4B5E74B2BF34BBB00688B6F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E4B5E74A2BF34BBB00688B6F /* Assets.xcassets */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		66BCDDC42ED9925200E8C74F /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				66BCDDC72ED9999E00E8C74F /* SparsaMobile.xcframework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		661115FF2C638D58006A716C /* ButtonModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonModel.swift; sourceTree = "<group>"; };
 		664FA20D2C770D2B00034305 /* QRScannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRScannerViewController.swift; sourceTree = "<group>"; };
+		6664E90C2EDDE2D00076E47F /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		666A3B932C60BEDE004AE2A8 /* sdk-sample-app.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "sdk-sample-app.entitlements"; sourceTree = "<group>"; };
+		6674C7302ED9B7CF009A3153 /* UIState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIState.swift; sourceTree = "<group>"; };
 		667567A22C2EA0A9001490EE /* ContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerView.swift; sourceTree = "<group>"; };
 		667567A62C2EAB76001490EE /* ContainerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerViewModel.swift; sourceTree = "<group>"; };
 		667567AC2C2EBBBC001490EE /* SparsaApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SparsaApp.swift; sourceTree = "<group>"; };
 		667CCB8D2CCA2A1600365F98 /* UIApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplication.swift; sourceTree = "<group>"; };
-		66B52BA92EC4F24200BAE72E /* UIState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIState.swift; sourceTree = "<group>"; };
 		66B52BAB2EC4F28F00BAE72E /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
 		66B6609A2C64E6E600EF379B /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
+		66BCDDC52ED9999E00E8C74F /* SparsaMobile.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = SparsaMobile.xcframework; path = ../XCFramework/SparsaMobile.xcframework; sourceTree = "<group>"; };
 		66D65A422CBF91AC00CB257C /* ChooserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooserView.swift; sourceTree = "<group>"; };
 		E4B5E73E2BF34BB900688B6F /* sdk-sample-app.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "sdk-sample-app.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E4B5E7412BF34BB900688B6F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E4B5E74A2BF34BBB00688B6F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E4B5E74F2BF34BBB00688B6F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -50,6 +72,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0DCBFC2D2EE5CD0700DE764A /* FirebaseMessaging in Frameworks */,
+				66BCDDC62ED9999E00E8C74F /* SparsaMobile.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -59,7 +83,7 @@
 		664FA20E2C770D2B00034305 /* QRScanner */ = {
 			isa = PBXGroup;
 			children = (
-				66B52BA92EC4F24200BAE72E /* UIState.swift */,
+				6674C7302ED9B7CF009A3153 /* UIState.swift */,
 				664FA20D2C770D2B00034305 /* QRScannerViewController.swift */,
 				66D65A422CBF91AC00CB257C /* ChooserView.swift */,
 			);
@@ -83,6 +107,7 @@
 			isa = PBXGroup;
 			children = (
 				667567AC2C2EBBBC001490EE /* SparsaApp.swift */,
+				E4B5E7412BF34BB900688B6F /* AppDelegate.swift */,
 			);
 			path = AppMain;
 			sourceTree = "<group>";
@@ -90,6 +115,7 @@
 		667567B22C2EBCD6001490EE /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				6664E90C2EDDE2D00076E47F /* GoogleService-Info.plist */,
 				E4B5E74A2BF34BBB00688B6F /* Assets.xcassets */,
 				E4B5E74F2BF34BBB00688B6F /* Info.plist */,
 				66B6609A2C64E6E600EF379B /* LaunchScreen.storyboard */,
@@ -105,10 +131,19 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		66BCDDC02ED9925100E8C74F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				66BCDDC52ED9999E00E8C74F /* SparsaMobile.xcframework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		E4B5E7352BF34BB900688B6F = {
 			isa = PBXGroup;
 			children = (
 				E4B5E7402BF34BB900688B6F /* sdk-sample-app */,
+				66BCDDC02ED9925100E8C74F /* Frameworks */,
 				E4B5E73F2BF34BB900688B6F /* Products */,
 			);
 			sourceTree = "<group>";
@@ -143,6 +178,7 @@
 				E4B5E73A2BF34BB900688B6F /* Sources */,
 				E4B5E73B2BF34BB900688B6F /* Frameworks */,
 				E4B5E73C2BF34BB900688B6F /* Resources */,
+				66BCDDC42ED9925200E8C74F /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -179,6 +215,8 @@
 				Base,
 			);
 			mainGroup = E4B5E7352BF34BB900688B6F;
+			packageReferences = (
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = E4B5E73F2BF34BB900688B6F /* Products */;
 			projectDirPath = "";
@@ -196,6 +234,7 @@
 			files = (
 				66B6609B2C64E6E600EF379B /* LaunchScreen.storyboard in Resources */,
 				E4B5E74B2BF34BBB00688B6F /* Assets.xcassets in Resources */,
+				6664E90D2EDDE2E00076E47F /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -210,7 +249,8 @@
 				661116002C638D58006A716C /* ButtonModel.swift in Sources */,
 				667567A72C2EAB76001490EE /* ContainerViewModel.swift in Sources */,
 				66D65A432CBF91AC00CB257C /* ChooserView.swift in Sources */,
-				66B52BAA2EC4F24200BAE72E /* UIState.swift in Sources */,
+				E4B5E7422BF34BB900688B6F /* AppDelegate.swift in Sources */,
+				6674C7312ED9B7CF009A3153 /* UIState.swift in Sources */,
 				667567AD2C2EBBBC001490EE /* SparsaApp.swift in Sources */,
 				66B52BAC2EC4F28F00BAE72E /* Helpers.swift in Sources */,
 				667567A32C2EA0A9001490EE /* ContainerView.swift in Sources */,
@@ -346,6 +386,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "sdk-sample-app/sdk-sample-app.entitlements";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_ASSET_PATHS = "";
@@ -370,8 +411,9 @@
 				);
 				MARKETING_VERSION = 1.0.0;
 				OTHER_CODE_SIGN_FLAGS = "";
-				PRODUCT_BUNDLE_IDENTIFIER = com.sparsa.inc.ios;
+				PRODUCT_BUNDLE_IDENTIFIER = com.sparsa.inc.authid.ios;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = NO;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -389,6 +431,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "sdk-sample-app/sdk-sample-app.entitlements";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_ASSET_PATHS = "";
@@ -413,8 +456,9 @@
 				);
 				MARKETING_VERSION = 1.0.0;
 				OTHER_CODE_SIGN_FLAGS = "";
-				PRODUCT_BUNDLE_IDENTIFIER = com.sparsa.inc.ios;
+				PRODUCT_BUNDLE_IDENTIFIER = com.sparsa.inc.authid.ios;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = NO;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -448,6 +492,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		0DCBFC2B2EE5CD0700DE764A /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 12.6.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		0DCBFC2C2EE5CD0700DE764A /* FirebaseMessaging */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0DCBFC2B2EE5CD0700DE764A /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseMessaging;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = E4B5E7362BF34BB900688B6F /* Project object */;
 }

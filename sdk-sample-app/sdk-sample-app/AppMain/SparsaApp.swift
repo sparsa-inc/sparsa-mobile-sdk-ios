@@ -11,6 +11,7 @@ import SwiftUI
 struct SparsaApp: App {
     
     @StateObject private var viewModel: ContainerViewModel = .init()
+    @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     
     var body: some Scene {
         WindowGroup {
