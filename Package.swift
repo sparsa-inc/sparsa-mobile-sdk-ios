@@ -8,15 +8,15 @@ let package = Package(
     ],
     products: [
         .library(
-            name: "Sparsa",
-            targets: ["Sparsa"]
+            name: "SparsaSDK",
+            targets: ["SparsaSDK"]
         ),
     ],
     targets: [
         .binaryTarget(
-            name: "Sparsa",
-            url: "https://github.com/sparsa-inc/sparsa-mobile-sdk-ios/releases/download/v1.1.1/Sparsa.xcframework.zip",
-            checksum: "92b14a95c82329635bc3e12d736f41260164cefd0b697a756e992525da0b297c"
+            name: "SparsaSDK",
+            url: "https://github.com/sparsa-inc/sparsa-mobile-sdk-ios/releases/download/v1.1.2/SparsaSDK.xcframework.zip",
+            checksum: "01715be71857d459ccc00f0fe0b4bfa06dd0d6788d1f7efc3bd0d8df258d0907"
         )
     ]
 )
