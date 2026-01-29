@@ -1,124 +1,157 @@
-# Sparsa Sample App
+# Sparsa iOS Sample App
 
-This is a sample iOS application demonstrating how to integrate and use the Sparsa SDK.
+This sample app demonstrates how to integrate and use the Sparsa iOS SDK.
 
-## Prerequisites
+## For Public Use (SDK Users)
 
-- iOS 15.0+
-- Xcode 15.0+
-- Swift 5.9+
+If you want to try this sample app with the published SDK:
 
-## Setup Instructions
-
-### Option 1: Swift Package Manager (Recommended)
-
-1. Open `sdk-sample-app.xcodeproj` in Xcode
-2. Go to **File > Add Package Dependencies...**
-3. Enter the repository URL:
-   ```
-   https://github.com/sparsa-inc/sparsa-mobile-sdk-ios
-   ```
-4. Select version `1.1.0` or later
-5. Click **Add Package**
-6. Select **Sparsa** and add it to the `sdk-sample-app` target
-
-### Option 2: Manual XCFramework Integration
-
-#### 1. Download the XCFramework
-
-Download the latest version of `Sparsa.xcframework` from the [GitHub Releases](https://github.com/sparsa-inc/sparsa-mobile-sdk-ios/releases) page.
-
-1. Go to the Releases page
-2. Download `Sparsa.xcframework.zip` from the latest release
-3. Unzip the downloaded file
-
-#### 2. Add XCFramework to the Project
-
-1. Open `sdk-sample-app.xcodeproj` in Xcode
-2. In the Project Navigator, right-click on the `sdk-sample-app` folder
-3. Select "Add Files to sdk-sample-app..."
-4. Navigate to the unzipped `Sparsa.xcframework` folder
-5. Select `Sparsa.xcframework` and click "Add"
-6. Make sure "Copy items if needed" is checked
-
-#### 3. Configure Framework Embedding
-
-1. Select the `sdk-sample-app` project in the Project Navigator
-2. Select the `sdk-sample-app` target
-3. Go to the "General" tab
-4. Scroll down to "Frameworks, Libraries, and Embedded Content"
-5. Ensure `Sparsa.xcframework` is listed with "Embed & Sign" selected
-
-### Build and Run
-
-1. Select a connected device (simulator not supported)
-2. Press `Cmd + B` to build the project
-3. Press `Cmd + R` to run the app
-
-## Project Structure
-
-```
-sdk-sample-app/
-├── sdk-sample-app/
-│   ├── AppMain/              # App initialization and configuration
-│   ├── ContainerView/        # Main UI and view models
-│   ├── Extensions/           # Swift extensions
-│   └── Resources/            # Assets and resources
-└── sdk-sample-app.xcodeproj
-```
-
-## Configuration
-
-Before running the app, you'll need to configure the SDK with your API credentials. Update the configuration in your app initialization code:
+### 1. Add the SDK via Swift Package Manager
 
 ```swift
-import SparsaSDK
-
-try await Sparsa.shared.configure(
-    url: "BASE_URL",
-    clientId: "your-client-id",
-    clientSecret: "your-client-secret",
-    onDelete: { }
-)
+// In Xcode: File → Add Package Dependencies
+// Add: https://github.com/sparsainc/sparsa-sdk
 ```
+
+Or add to your `Package.swift`:
+```swift
+dependencies: [
+    .package(url: "https://github.com/sparsainc/sparsa-sdk", from: "1.0.0")
+]
+```
+
+### 2. Build and Run
+
+```bash
+open iosApp.xcodeproj
+```
+
+Then press ⌘R to run.
+
+---
+
+## For SDK Development
+
+If you're developing the SDK and want to test changes with this sample app:
+
+### Setup
+
+1. **Clone the full repository** (including the SDK):
+   ```bash
+   git clone https://github.com/sparsainc/sparsa-sdk
+   cd sparsa-sdk
+   ```
+
+2. **Run the development setup**:
+   ```bash
+   ./link-sdk-to-sample.sh
+   ```
+
+3. **Open the workspace** (NOT the individual project):
+   ```bash
+   open SparsaDevelopment.xcworkspace
+   ```
+
+4. **Link the SDK** (one-time, choose ONE method):
+
+   **Method A: SPM (Recommended)**
+   - File → Add Package Dependencies
+   - Click "Add Local..."
+   - Select the `ios-sdk` directory
+
+   **Method B: Direct Framework**
+   - Select iosApp.xcodeproj → Sparsa target
+   - General → Frameworks, Libraries, and Embedded Content
+   - Click + → Add Sparsa.framework from the Sparsa project
+   - Set to "Embed & Sign"
+
+### Development Workflow
+
+1. **Make changes** to SDK code in `../ios-sdk/SparsaSDK/Sources/`
+2. **Build** (⌘B) - Automatically builds SDK + sample app
+3. **Run** (⌘R) - Launches app with your SDK changes
+4. **Debug** - Set breakpoints in SDK code, they work seamlessly
+
+### How It Works
+
+```
+SparsaDevelopment.xcworkspace
+├── Sparsa.xcodeproj (SDK)    ← Edit SDK code here
+│   └── Builds: Sparsa.framework
+└── iosApp.xcodeproj (Sample)  ← Automatically uses above framework
+    └── Imports: Sparsa
+```
+
+When you build the sample app:
+1. Kotlin shared module builds automatically
+2. Swift SDK builds with your changes
+3. Sample app links to the built framework
+4. No manual copying or repackaging needed!
+
+---
 
 ## Features Demonstrated
 
-- SDK initialization and configuration
-- User authentication flows
-- Credential management
-- Identity verification
-- QR code scanning
+- ✅ SDK Configuration
+- ✅ User Registration
+- ✅ FIDO Authentication
+- ✅ QR Code Scanning
+- ✅ Device Management
+- ✅ Credential Management
+
+## Requirements
+
+- iOS 14.0+
+- Xcode 15.0+
+- Swift 5.9+
+
+For SDK development:
+- Kotlin 2.0+ (for building shared module)
+- Gradle 8.0+
+
+## What's Not Included in Git
+
+This repository does NOT include:
+- Built SDK frameworks (`.framework`, `.xcframework`)
+- Build artifacts (`build/` directories)
+- Compiled Kotlin frameworks
+
+These are built locally when you develop. This keeps the repository clean and small.
 
 ## Troubleshooting
 
-### Build Errors
+### "No such module 'Sparsa'"
 
-If you encounter build errors after adding the SDK:
+**Cause**: SDK not linked to sample app
 
-1. Clean the build folder: `Product > Clean Build Folder` (Cmd + Shift + K)
-2. Delete derived data: `~/Library/Developer/Xcode/DerivedData/`
-3. Restart Xcode
+**Fix**: Follow the "Link the SDK" step above (Method A or B)
 
-### Framework Not Found (Manual Integration)
+### SDK changes not reflected
 
-If you see "Framework not found" errors:
+**Cause**: Stale build cache
 
-1. Verify the XCFramework is properly added in "Frameworks, Libraries, and Embedded Content"
-2. Check that the embedding option is set to "Embed & Sign"
-3. Verify the XCFramework file exists in your project directory
+**Fix**:
+```
+Clean Build Folder (⌘⇧K)
+Build (⌘B)
+Run (⌘R)
+```
 
-### SPM Package Resolution Issues
+### "shared.xcframework not found"
 
-If SPM fails to resolve the package:
+**Cause**: Kotlin framework not built
 
-1. Go to **File > Packages > Reset Package Caches**
-2. Try **File > Packages > Resolve Package Versions**
+**Fix**:
+```bash
+cd ../shared
+./gradlew :shared:linkReleaseFrameworkIosSimulatorArm64
+./gradlew :shared:linkReleaseFrameworkIosArm64
+```
 
-## Documentation
+Then in Xcode: Clean (⌘⇧K) → Build (⌘B)
 
-For detailed API documentation, visit the [official documentation](https://sparsa-inc.github.io/sparsa-mobile-sdk-ios/documentation/sparsa).
+## See Also
 
-## Support
-
-For issues and questions, please refer to the main [Sparsa SDK repository](https://github.com/sparsa-inc/sparsa-mobile-sdk-ios).
+- [Quick Start Guide](../QUICK_START.md) - Step-by-step setup
+- [Development Setup](../DEVELOPMENT_SETUP.md) - Detailed development workflow
+- [SDK Documentation](../ios-sdk/README.md) - API reference
