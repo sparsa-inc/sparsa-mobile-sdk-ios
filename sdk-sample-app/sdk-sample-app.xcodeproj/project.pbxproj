@@ -16,6 +16,7 @@
 		666C33ED2F2BEBED002525F5 /* Sparsa in Frameworks */ = {isa = PBXBuildFile; productRef = 666C33EC2F2BEBED002525F5 /* Sparsa */; };
 		666C33F02F2BEC30002525F5 /* Sparsa in Frameworks */ = {isa = PBXBuildFile; productRef = 666C33EF2F2BEC30002525F5 /* Sparsa */; };
 		666C33F32F2BED56002525F5 /* Sparsa in Frameworks */ = {isa = PBXBuildFile; productRef = 666C33F22F2BED56002525F5 /* Sparsa */; };
+		666C33F62F2BF1EC002525F5 /* Sparsa in Frameworks */ = {isa = PBXBuildFile; productRef = 666C33F52F2BF1EC002525F5 /* Sparsa */; };
 		6674C7312ED9B7CF009A3153 /* UIState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6674C7302ED9B7CF009A3153 /* UIState.swift */; };
 		667567A32C2EA0A9001490EE /* ContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 667567A22C2EA0A9001490EE /* ContainerView.swift */; };
 		667567A72C2EAB76001490EE /* ContainerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 667567A62C2EAB76001490EE /* ContainerViewModel.swift */; };
@@ -73,6 +74,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				666C33F62F2BF1EC002525F5 /* Sparsa in Frameworks */,
 				666C33F02F2BEC30002525F5 /* Sparsa in Frameworks */,
 				666C33ED2F2BEBED002525F5 /* Sparsa in Frameworks */,
 				666C33F32F2BED56002525F5 /* Sparsa in Frameworks */,
@@ -221,7 +223,7 @@
 			mainGroup = E4B5E7352BF34BB900688B6F;
 			packageReferences = (
 				666C33E52F2BC898002525F5 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
-				666C33F12F2BED56002525F5 /* XCRemoteSwiftPackageReference "sparsa-mobile-sdk-ios" */,
+				666C33F42F2BF1EC002525F5 /* XCRemoteSwiftPackageReference "sparsa-mobile-sdk-ios" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = E4B5E73F2BF34BB900688B6F /* Products */;
@@ -548,6 +550,14 @@
 				minimumVersion = 1.0.0;
 			};
 		};
+		666C33F42F2BF1EC002525F5 /* XCRemoteSwiftPackageReference "sparsa-mobile-sdk-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/sparsa-inc/sparsa-mobile-sdk-ios";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -579,6 +589,11 @@
 		666C33F22F2BED56002525F5 /* Sparsa */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 666C33F12F2BED56002525F5 /* XCRemoteSwiftPackageReference "sparsa-mobile-sdk-ios" */;
+			productName = Sparsa;
+		};
+		666C33F52F2BF1EC002525F5 /* Sparsa */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 666C33F42F2BF1EC002525F5 /* XCRemoteSwiftPackageReference "sparsa-mobile-sdk-ios" */;
 			productName = Sparsa;
 		};
 /* End XCSwiftPackageProductDependency section */
