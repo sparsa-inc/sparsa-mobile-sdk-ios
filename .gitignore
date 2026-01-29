@@ -40,13 +40,8 @@ playground.xcworkspace
 #
 # Pods/
 #
-<<<<<<< HEAD
-# Ignore workspace files as they are not needed when XCFramework is distributed separately
-*.xcworkspace
-=======
 # Add this line if you want to avoid checking in source code from the Xcode workspace
 # *.xcworkspace
->>>>>>> eeb4172 (Release 1.1.0 - SPM support, updated documentation and sample app)
 
 # Carthage
 #
@@ -108,34 +103,13 @@ Thumbs.db
 *.exe
 *.war
 
-<<<<<<< HEAD
-# Large media files (but allow docs/videos for documentation)
-*.mp4
-!docs/videos/**/*.mp4
-=======
 # Large media files
 *.mp4
->>>>>>> eeb4172 (Release 1.1.0 - SPM support, updated documentation and sample app)
 *.tiff
 *.avi
 *.flv
 *.mov
 *.wmv
-<<<<<<< HEAD
 
-# SDK Source Code (private - kept on Bitbucket only)
-/SparsaMobile/
-/Package.swift
-/.swiftpm/
-/build_xcframework.sh
-/prepare_release.sh
-
-# XCFramework - users will download this separately
-XCFramework/
-*.xcframework
-=======
-/XCFramework
+# XCFramework zip (upload to GitHub releases, not committed)
 *.xcframework.zip
-*.xcframework/
-/SparsaMobile/SparsaMobile/SparsaMobile/SparsaMobile.docc
->>>>>>> eeb4172 (Release 1.1.0 - SPM support, updated documentation and sample app)
