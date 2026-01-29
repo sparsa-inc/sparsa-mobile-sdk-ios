@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import SparsaMobile
+import Sparsa
 import FirebaseCore
 import FirebaseMessaging
 
@@ -55,7 +55,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 
     func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
         if let fcm = Messaging.messaging().fcmToken {
-            SparsaMobile.updateDeviceToken(fcm)
+            Sparsa.updateDeviceToken(fcm)
         }
     }
     
@@ -66,7 +66,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             UNNotificationPresentationOptions
         ) -> Void
     ) {
-        SparsaMobile.handleNotification(notification.request.content.userInfo)
+        Sparsa.handleNotification(notification.request.content.userInfo)
         completionHandler([.sound, .badge])
     }
     
@@ -76,7 +76,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         withCompletionHandler completionHandler: @escaping () -> Void
     ) {
         let userInfo = response.notification.request.content.userInfo
-        SparsaMobile.handleNotification(userInfo)
+        Sparsa.handleNotification(userInfo)
         completionHandler()
     }
     

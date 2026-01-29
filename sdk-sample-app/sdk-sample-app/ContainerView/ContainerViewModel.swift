@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import SparsaMobile
+import Sparsa
 import UIKit
 import Combine
 
@@ -51,7 +51,7 @@ class ContainerViewModel: NSObject, ObservableObject {
 
     func submitSDKConfiguration() {
         execute { weakSelf in
-            try await SparsaMobile.configure(url: "BASE_URL",
+            try await Sparsa.configure(url: "BASE_URL",
                                              clientId: weakSelf.state.clientId,
                                              clientSecret: weakSelf.state.secret)
             self.setState()
@@ -61,7 +61,7 @@ class ContainerViewModel: NSObject, ObservableObject {
     
     func authUser() {
         execute { weakSelf in
-            let result = try await SparsaMobile.recoverDigitalAddress(weakSelf.state.qrData)
+            let result = try await Sparsa.recoverDigitalAddress(weakSelf.state.qrData)
             weakSelf.runOnMainThread { wSelf in
                 wSelf.state.digitalAddress = result.digitalAddress
                 wSelf.state.linkDeviceId = result.linkDeviceId
@@ -72,7 +72,7 @@ class ContainerViewModel: NSObject, ObservableObject {
     
     func regUser() {
         execute { weakSelf in
-            let result = try await SparsaMobile.importDigitalAddress(weakSelf.state.qrData)
+            let result = try await Sparsa.importDigitalAddress(weakSelf.state.qrData)
             weakSelf.runOnMainThread { wSelf in
                 wSelf.state.digitalAddress = result.digitalAddress
                 wSelf.state.linkDeviceId = result.linkDeviceId
@@ -85,7 +85,7 @@ class ContainerViewModel: NSObject, ObservableObject {
     func proofProcess() {
         execute { weakSelf in
             let qrData = try await weakSelf.getQR()
-            try await SparsaMobile.proofProcess(qrData)
+            try await Sparsa.proofProcess(qrData)
             return "Process action executed"
         }
     }
@@ -96,7 +96,7 @@ class ContainerViewModel: NSObject, ObservableObject {
     
     func getDeviceDetails() {
         execute { weakSelf in
-            let devices = try await SparsaMobile.getDevices()
+            let devices = try await Sparsa.getDevices()
             weakSelf.showBottomSheet(items: devices.map { $0.name + " - " + $0.identifier }, selectable: true)
             if let selectedDeviceName = await weakSelf.waitForUserSelection() {
                 if let selectedDevice = devices.first(where: { $0.name + " - " + $0.identifier == selectedDeviceName }) {
@@ -109,11 +109,11 @@ class ContainerViewModel: NSObject, ObservableObject {
     
     func deleteDevice() {
         execute { weakSelf in
-            let devices = try await SparsaMobile.getDevices()
+            let devices = try await Sparsa.getDevices()
             weakSelf.showBottomSheet(items: devices.map { $0.name + " - " + $0.identifier }, selectable: true)
             if let selectedDeviceName = await weakSelf.waitForUserSelection() {
                 if let selectedDevice = devices.first(where: { $0.name + " - " + $0.identifier == selectedDeviceName }) {
-                    try await SparsaMobile.deleteDevice(deviceIdentifier: selectedDevice.identifier)
+                    try await Sparsa.deleteDevice(deviceIdentifier: selectedDevice.identifier)
                     if selectedDevice.identifier == weakSelf.state.linkDeviceId {
                         weakSelf.clearState()
                     }
@@ -128,7 +128,7 @@ class ContainerViewModel: NSObject, ObservableObject {
         uiState.showEmailInput = true
         execute { weakSelf in
             if let email = try await weakSelf.waitForUserInput() {
-                _ = try await SparsaMobile.sendRecoveryEmail(email: email)
+                _ = try await Sparsa.sendRecoveryEmail(email: email)
             }
             return "Sent successfuly"
         }
@@ -138,7 +138,7 @@ class ContainerViewModel: NSObject, ObservableObject {
         uiState.showEmailInput = true
         execute { weakSelf in
             if let email = try await weakSelf.waitForUserInput() {
-                try await SparsaMobile.setRecoveryEmail(email: email)
+                try await Sparsa.setRecoveryEmail(email: email)
             }
             return "Set successfuly"
         }
@@ -146,11 +146,11 @@ class ContainerViewModel: NSObject, ObservableObject {
     
     func getCredentials() {
         execute { weakSelf in
-            var credentials = try await SparsaMobile.getCredentials()
+            var credentials = try await Sparsa.getCredentials()
             guard let (statuses, types) = try await weakSelf.presentCredentialsFilter(with: credentials) else {
                 return "Failed to get credentails"
             }
-            credentials = try await SparsaMobile.getCredentials(with: statuses, and: types)
+            credentials = try await Sparsa.getCredentials(with: statuses, and: types)
             if credentials.isEmpty {
                 return "No credentials found with statuses: \(statuses) and types: \(types)"
             }
@@ -166,9 +166,9 @@ class ContainerViewModel: NSObject, ObservableObject {
     
     func getCredentialDetails() {
         execute { weakSelf in
-            var credentials = try await SparsaMobile.getCredentials()
+            var credentials = try await Sparsa.getCredentials()
             if let (statuses, types) = try await weakSelf.presentCredentialsFilter(with: credentials) {
-                credentials = try await SparsaMobile.getCredentials(with: statuses, and: types)
+                credentials = try await Sparsa.getCredentials(with: statuses, and: types)
                 
             }
             weakSelf.showBottomSheet(items: credentials.compactMap { $0.schema }, selectable: true)
@@ -182,7 +182,7 @@ class ContainerViewModel: NSObject, ObservableObject {
     }
     
     func getLanguage() {
-        execute { weakSelf in try await SparsaMobile.getLanguage() }
+        execute { weakSelf in try await Sparsa.getLanguage() }
     }
     
     func setLanguage() {
@@ -191,7 +191,7 @@ class ContainerViewModel: NSObject, ObservableObject {
             weakSelf.showBottomSheet(items: languages, selectable: true)
             if let selectedLanguage = await weakSelf.waitForUserSelection() {
                 let lang = selectedLanguage == "Japan" ? "ja" : "en"
-                let result = try await SparsaMobile.setLanguage(language: lang)
+                let result = try await Sparsa.setLanguage(language: lang)
                 return result
             } else {
                 return "Failed to set language."
@@ -202,7 +202,7 @@ class ContainerViewModel: NSObject, ObservableObject {
     func startCredentialVerificationProcess() {
         execute { weakSelf in
             
-            let result = try await SparsaMobile.startCredentialVerificationProcess(transactionId: weakSelf.state.transactionId)
+            let result = try await Sparsa.startCredentialVerificationProcess(transactionId: weakSelf.state.transactionId)
             weakSelf.runOnMainThread { wSelf in
                 wSelf.state.credentialVerificationStarted = true
             }
@@ -212,12 +212,12 @@ class ContainerViewModel: NSObject, ObservableObject {
     
     func acceptProof() {
         execute { weakSelf in
-            let credentials = try await SparsaMobile.getCredentials()
+            let credentials = try await Sparsa.getCredentials()
             weakSelf.showBottomSheet(items: credentials.map { $0.schema ?? "" }, selectable: true)
             if let selectedCredentialName = await weakSelf.waitForUserSelection() {
                 if let selectedCredential = credentials.first(where: { $0.schema == selectedCredentialName }),
                    let identifier = selectedCredential.identifier {
-                    let result = try await SparsaMobile.acceptProof(transactionId: weakSelf.state.transactionId,
+                    let result = try await Sparsa.acceptProof(transactionId: weakSelf.state.transactionId,
                                                                     credentialIdentifier: identifier)
                     weakSelf.runOnMainThread { wSelf in
                         wSelf.state.credentialVerificationStarted = false
@@ -232,7 +232,7 @@ class ContainerViewModel: NSObject, ObservableObject {
     
     func rejectProof() {
         execute { weakSelf in
-            let result = try await SparsaMobile.rejectProof(transactionId: weakSelf.state.transactionId)
+            let result = try await Sparsa.rejectProof(transactionId: weakSelf.state.transactionId)
             weakSelf.runOnMainThread { wSelf in
                 wSelf.state.credentialVerificationStarted = false
                 wSelf.state.transactionId = ""
@@ -243,7 +243,7 @@ class ContainerViewModel: NSObject, ObservableObject {
     
     func deviceBootstrappingVerification() {
         execute { weakSelf in
-            let result = try await SparsaMobile.deviceBootstrappingVerification()
+            let result = try await Sparsa.deviceBootstrappingVerification()
             weakSelf.runOnMainThread { wSelf in
                 wSelf.state.transactionId = result.identifier
             }
@@ -253,7 +253,7 @@ class ContainerViewModel: NSObject, ObservableObject {
     
     func checkBootstrappingStatus() {
         execute { weakSelf in
-            let result = try await SparsaMobile.checkBootstrappingStatus(with: weakSelf.state.transactionId)
+            let result = try await Sparsa.checkBootstrappingStatus(with: weakSelf.state.transactionId)
             return "Status is: " + result.status
         }
     }
