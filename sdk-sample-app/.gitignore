@@ -1,0 +1,13 @@
+# Xcode user data
+xcuserdata/
+
+# XCFramework - users will download this separately from releases
+*.xcframework/
+SparsaMobile.xcframework
+
+# Build outputs
+build/
+DerivedData/
+
+# macOS
+.DS_Store

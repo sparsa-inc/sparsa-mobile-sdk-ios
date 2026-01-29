@@ -1,6 +1,6 @@
 # Sparsa SDK - iOS
 
-This repository contains the Sparsa SDK for iOS.
+This repository contains the Sparsa SDK for iOS and a sample application demonstrating its integration.
 
 ## Requirements
 
@@ -21,13 +21,13 @@ Add Sparsa to your project using Swift Package Manager:
    ```
 3. Select the version rule (e.g., "Up to Next Major Version")
 4. Click **Add Package**
-5. Select **SparsaSDK** and add it to your target
+5. Select **Sparsa** and add it to your target
 
 Alternatively, add it to your `Package.swift`:
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/sparsa-inc/sparsa-mobile-sdk-ios", from: "1.1.3")
+    .package(url: "https://github.com/sparsa-inc/sparsa-mobile-sdk-ios", from: "1.1.0")
 ]
 ```
 
@@ -36,7 +36,7 @@ Then add the dependency to your target:
 ```swift
 .target(
     name: "YourApp",
-    dependencies: ["SparsaSDK"]
+    dependencies: ["Sparsa"]
 )
 ```
 
@@ -44,11 +44,15 @@ Then add the dependency to your target:
 
 Download the latest XCFramework from the [Releases](https://github.com/sparsa-inc/sparsa-mobile-sdk-ios/releases) page.
 
-1. Download `SparsaSDK.xcframework.zip` from the latest release
+1. Download `Sparsa.xcframework.zip` from the latest release
 2. Unzip the downloaded file
-3. Drag and drop `SparsaSDK.xcframework` into your Xcode project
+3. Drag and drop `Sparsa.xcframework` into your Xcode project
 4. Make sure "Copy items if needed" is checked
-5. In your target's "Frameworks, Libraries, and Embedded Content" section, ensure SparsaSDK.xcframework is set to "Embed & Sign"
+5. In your target's "Frameworks, Libraries, and Embedded Content" section, ensure Sparsa.xcframework is set to "Embed & Sign"
+
+### Sample App
+
+For a complete working example, see the [sample app](./sdk-sample-app/README.md) included in this repository.
 
 ## Quick Start
 
