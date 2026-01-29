@@ -1,5 +1,5 @@
 {
-  "originHash" : "a1569f9895aa2be8e24832f98525d5da4eb90b5d158a82691c15b47eb72a13d7",
+  "originHash" : "e85f50e2e1113a8615b68394e7345ab41677cad24ca10a8b9bcbde4415087e2d",
   "pins" : [
     {
       "identity" : "abseil-cpp-binary",
@@ -116,6 +116,15 @@
       "state" : {
         "revision" : "540318ecedd63d883069ae7f1ed811a2df00b6ac",
         "version" : "2.4.0"
+      }
+    },
+    {
+      "identity" : "sparsa-mobile-sdk-ios",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/sparsa-inc/sparsa-mobile-sdk-ios",
+      "state" : {
+        "revision" : "4ab434e3f076c0120f24d5f56ee0735521cd6855",
+        "version" : "1.1.0"
       }
     }
   ],

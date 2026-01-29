@@ -20,7 +20,7 @@ struct CredentialsFilterView: View {
         var options = ["All"]
         options += Array(viewModel.fetchedCredentialsForFilter.reduce(Set<String>()) { partialResult, credential in
             var res = partialResult
-            res.insert(credential.schemaIdentifier ?? "")
+            res.insert(credential.schemaIdentifier)
             return res
         }).sorted(by: <)
         return options
@@ -104,9 +104,9 @@ struct CredentialsFilterView: View {
         let schemaIds = Set(
             viewModel.fetchedCredentialsForFilter
                 .filter {
-                    selectedSchemaIds.contains($0.schema ?? "")
+                    selectedSchemaIds.contains($0.schema)
                 }
-                .map { $0.schemaIdentifier ?? "" }
+                .map { $0.schemaIdentifier }
         )
         viewModel.filterResult = (statuses, schemaIds)
         dismiss()

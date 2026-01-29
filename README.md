@@ -59,16 +59,17 @@ For a complete working example, see the [sample app](./sdk-sample-app/README.md)
 1. Install the Sparsa SDK using one of the methods above
 2. Import the module in your code:
    ```swift
-   import Sparsa
+   import SparsaSDK
    ```
 3. Configure the SDK:
    ```swift
    Task {
        do {
-           try await Sparsa.configure(
+           try await Sparsa.shared.configure(
                url: "BASE_URL",
                clientId: "your-client-id",
-               clientSecret: "your-client-secret"
+               clientSecret: "your-client-secret",
+               onDelete: { }
            )
 
            // Now you can use the SDK

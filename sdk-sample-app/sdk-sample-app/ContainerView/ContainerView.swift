@@ -7,7 +7,7 @@
 
 import SwiftUI
 import Combine
-import Sparsa
+import SparsaSDK
 
 struct ContainerView: View {
 

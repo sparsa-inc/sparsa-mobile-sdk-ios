@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import Sparsa
+import SparsaSDK
 import Combine
 import UIKit
 

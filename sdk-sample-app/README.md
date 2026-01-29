@@ -72,12 +72,13 @@ sdk-sample-app/
 Before running the app, you'll need to configure the SDK with your API credentials. Update the configuration in your app initialization code:
 
 ```swift
-import Sparsa
+import SparsaSDK
 
-try await Sparsa.configure(
+try await Sparsa.shared.configure(
     url: "BASE_URL",
     clientId: "your-client-id",
-    clientSecret: "your-client-secret"
+    clientSecret: "your-client-secret",
+    onDelete: { }
 )
 ```
 

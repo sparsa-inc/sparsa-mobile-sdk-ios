@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import Sparsa
+import SparsaSDK
 import UIKit
 import Combine
 
@@ -51,9 +51,10 @@ class ContainerViewModel: NSObject, ObservableObject {
 
     func submitSDKConfiguration() {
         execute { weakSelf in
-            try await Sparsa.configure(url: "BASE_URL",
+            try await Sparsa.shared.configure(url: "BASE_URL",
                                              clientId: weakSelf.state.clientId,
-                                             clientSecret: weakSelf.state.secret)
+                                             clientSecret: weakSelf.state.secret,
+                                             onDelete: { })
             self.setState()
             return "Sparsa successfully initialized"
         }
@@ -61,10 +62,10 @@ class ContainerViewModel: NSObject, ObservableObject {
     
     func authUser() {
         execute { weakSelf in
-            let result = try await Sparsa.recoverDigitalAddress(weakSelf.state.qrData)
+            let result = try await Sparsa.shared.recoverDigitalAddress(weakSelf.state.qrData)
             weakSelf.runOnMainThread { wSelf in
                 wSelf.state.digitalAddress = result.digitalAddress
-                wSelf.state.linkDeviceId = result.linkDeviceId
+                wSelf.state.linkDeviceId = result.deviceIdentifier
             }
             return "Authentication succeed and device linked with digital address"
         }
@@ -72,10 +73,10 @@ class ContainerViewModel: NSObject, ObservableObject {
     
     func regUser() {
         execute { weakSelf in
-            let result = try await Sparsa.importDigitalAddress(weakSelf.state.qrData)
+            let result = try await Sparsa.shared.importDigitalAddress(weakSelf.state.qrData)
             weakSelf.runOnMainThread { wSelf in
                 wSelf.state.digitalAddress = result.digitalAddress
-                wSelf.state.linkDeviceId = result.linkDeviceId
+                wSelf.state.linkDeviceId = result.deviceIdentifier
             }
             
             return "Registration succeed and device linked with digital address"
@@ -85,7 +86,7 @@ class ContainerViewModel: NSObject, ObservableObject {
     func proofProcess() {
         execute { weakSelf in
             let qrData = try await weakSelf.getQR()
-            try await Sparsa.proofProcess(qrData)
+            try await Sparsa.shared.proofProcess(qrData)
             return "Process action executed"
         }
     }
@@ -96,7 +97,7 @@ class ContainerViewModel: NSObject, ObservableObject {
     
     func getDeviceDetails() {
         execute { weakSelf in
-            let devices = try await Sparsa.getDevices()
+            let devices = try await Sparsa.shared.getDevices()
             weakSelf.showBottomSheet(items: devices.map { $0.name + " - " + $0.identifier }, selectable: true)
             if let selectedDeviceName = await weakSelf.waitForUserSelection() {
                 if let selectedDevice = devices.first(where: { $0.name + " - " + $0.identifier == selectedDeviceName }) {
@@ -109,11 +110,11 @@ class ContainerViewModel: NSObject, ObservableObject {
     
     func deleteDevice() {
         execute { weakSelf in
-            let devices = try await Sparsa.getDevices()
+            let devices = try await Sparsa.shared.getDevices()
             weakSelf.showBottomSheet(items: devices.map { $0.name + " - " + $0.identifier }, selectable: true)
             if let selectedDeviceName = await weakSelf.waitForUserSelection() {
                 if let selectedDevice = devices.first(where: { $0.name + " - " + $0.identifier == selectedDeviceName }) {
-                    try await Sparsa.deleteDevice(deviceIdentifier: selectedDevice.identifier)
+                    try await Sparsa.shared.deleteDevice(deviceIdentifier: selectedDevice.identifier)
                     if selectedDevice.identifier == weakSelf.state.linkDeviceId {
                         weakSelf.clearState()
                     }
@@ -128,7 +129,7 @@ class ContainerViewModel: NSObject, ObservableObject {
         uiState.showEmailInput = true
         execute { weakSelf in
             if let email = try await weakSelf.waitForUserInput() {
-                _ = try await Sparsa.sendRecoveryEmail(email: email)
+                _ = try await Sparsa.shared.sendRecoveryEmail(email: email)
             }
             return "Sent successfuly"
         }
@@ -138,7 +139,7 @@ class ContainerViewModel: NSObject, ObservableObject {
         uiState.showEmailInput = true
         execute { weakSelf in
             if let email = try await weakSelf.waitForUserInput() {
-                try await Sparsa.setRecoveryEmail(email: email)
+                try await Sparsa.shared.setRecoveryEmail(email: email)
             }
             return "Set successfuly"
         }
@@ -146,11 +147,11 @@ class ContainerViewModel: NSObject, ObservableObject {
     
     func getCredentials() {
         execute { weakSelf in
-            var credentials = try await Sparsa.getCredentials()
+            var credentials = try await Sparsa.shared.getCredentials()
             guard let (statuses, types) = try await weakSelf.presentCredentialsFilter(with: credentials) else {
                 return "Failed to get credentails"
             }
-            credentials = try await Sparsa.getCredentials(with: statuses, and: types)
+            credentials = try await Sparsa.shared.getCredentials(with: statuses, and: types)
             if credentials.isEmpty {
                 return "No credentials found with statuses: \(statuses) and types: \(types)"
             }
@@ -166,9 +167,9 @@ class ContainerViewModel: NSObject, ObservableObject {
     
     func getCredentialDetails() {
         execute { weakSelf in
-            var credentials = try await Sparsa.getCredentials()
+            var credentials = try await Sparsa.shared.getCredentials()
             if let (statuses, types) = try await weakSelf.presentCredentialsFilter(with: credentials) {
-                credentials = try await Sparsa.getCredentials(with: statuses, and: types)
+                credentials = try await Sparsa.shared.getCredentials(with: statuses, and: types)
                 
             }
             weakSelf.showBottomSheet(items: credentials.compactMap { $0.schema }, selectable: true)
@@ -182,7 +183,7 @@ class ContainerViewModel: NSObject, ObservableObject {
     }
     
     func getLanguage() {
-        execute { weakSelf in try await Sparsa.getLanguage() }
+        execute { weakSelf in try await Sparsa.shared.getLanguage() }
     }
     
     func setLanguage() {
@@ -191,72 +192,34 @@ class ContainerViewModel: NSObject, ObservableObject {
             weakSelf.showBottomSheet(items: languages, selectable: true)
             if let selectedLanguage = await weakSelf.waitForUserSelection() {
                 let lang = selectedLanguage == "Japan" ? "ja" : "en"
-                let result = try await Sparsa.setLanguage(language: lang)
-                return result
+                try await Sparsa.shared.setLanguage(language: lang)
+                return "Language set to \(lang)"
             } else {
                 return "Failed to set language."
             }
         }
     }
     
-    func startCredentialVerificationProcess() {
-        execute { weakSelf in
-            
-            let result = try await Sparsa.startCredentialVerificationProcess(transactionId: weakSelf.state.transactionId)
-            weakSelf.runOnMainThread { wSelf in
-                wSelf.state.credentialVerificationStarted = true
-            }
-            return [result.questionTitle, "Status: " + result.status].joined(separator: ", ")
-        }
-    }
-    
-    func acceptProof() {
-        execute { weakSelf in
-            let credentials = try await Sparsa.getCredentials()
-            weakSelf.showBottomSheet(items: credentials.map { $0.schema ?? "" }, selectable: true)
-            if let selectedCredentialName = await weakSelf.waitForUserSelection() {
-                if let selectedCredential = credentials.first(where: { $0.schema == selectedCredentialName }),
-                   let identifier = selectedCredential.identifier {
-                    let result = try await Sparsa.acceptProof(transactionId: weakSelf.state.transactionId,
-                                                                    credentialIdentifier: identifier)
-                    weakSelf.runOnMainThread { wSelf in
-                        wSelf.state.credentialVerificationStarted = false
-                        wSelf.state.transactionId = ""
-                    }
-                    return [result.identifier + " accepted", "\nStatus: " + result.status].joined(separator: ", ")
-                }
-            }
-            return "Failed to accept proof"
-        }
-    }
-    
-    func rejectProof() {
-        execute { weakSelf in
-            let result = try await Sparsa.rejectProof(transactionId: weakSelf.state.transactionId)
-            weakSelf.runOnMainThread { wSelf in
-                wSelf.state.credentialVerificationStarted = false
-                wSelf.state.transactionId = ""
-            }
-            return [result.identifier + " rejected", "\nStatus: " + result.status].joined(separator: ", ")
-        }
-    }
+    // TODO: Re-enable when these methods are added to the SDK
+    // func startCredentialVerificationProcess() { ... }
+    // func acceptProof() { ... }
+    // func rejectProof() { ... }
     
     func deviceBootstrappingVerification() {
         execute { weakSelf in
-            let result = try await Sparsa.deviceBootstrappingVerification()
-            weakSelf.runOnMainThread { wSelf in
-                wSelf.state.transactionId = result.identifier
+            let result = try await Sparsa.shared.deviceBootstrappingVerification { bootstrapping in
+                print("Bootstrapping data: \(bootstrapping.identifier) - \(bootstrapping.status)")
             }
-            return result.identifier + "\nStatus is: " + result.status
+            weakSelf.runOnMainThread { wSelf in
+                wSelf.state.digitalAddress = result.digitalAddress
+                wSelf.state.linkDeviceId = result.deviceIdentifier
+            }
+            return "Device bootstrapping completed. Digital address: \(result.digitalAddress)"
         }
     }
     
-    func checkBootstrappingStatus() {
-        execute { weakSelf in
-            let result = try await Sparsa.checkBootstrappingStatus(with: weakSelf.state.transactionId)
-            return "Status is: " + result.status
-        }
-    }
+    // TODO: Re-enable when checkBootstrappingStatus is added to the SDK
+    // func checkBootstrappingStatus() { ... }
     
     var buttonGroups: [ButtonsGroup] {
         return [
@@ -280,12 +243,8 @@ class ContainerViewModel: NSObject, ObservableObject {
                     .init(.setLanguage, action: setLanguage),
                     .init(.getLanguage, action: getLanguage)
                   ]),
-            .init(name: "Bootstrapping, Credential Verification", buttons: [
-                .init(.deviceBootstrappingVerification, disabled: false, action: deviceBootstrappingVerification),
-                .init(.checkBootstrappingStatus, action: checkBootstrappingStatus),
-                .init(.startCredentialVerificationProcess, action: startCredentialVerificationProcess),
-                .init(.acceptProof, action: acceptProof),
-                .init(.rejectProof, action: rejectProof)
+            .init(name: "Bootstrapping", buttons: [
+                .init(.deviceBootstrappingVerification, disabled: false, action: deviceBootstrappingVerification)
             ])
         ]
     }
@@ -299,20 +258,12 @@ class ContainerViewModel: NSObject, ObservableObject {
                     state.qrData.isEmpty || !state.digitalAddress.isEmpty
                 case .sendRecoveryEmail:
                     false
-                case .startCredentialVerificationProcess:
-                    state.digitalAddress.isEmpty ||
-                    state.transactionId.isEmpty ||
-                    state.credentialVerificationStarted
                 case .getCredentials, .getDevices,
                     .getDeviceDetails, .getCredentialDetails,
                     .getLanguage, .setLanguage,
                     .deviceBootstrappingVerification, .deleteDevice,
                     .proofProcess, .setRecoveryEmail:
                     state.digitalAddress.isEmpty
-                case .checkBootstrappingStatus:
-                    state.transactionId.isEmpty
-                case .acceptProof, .rejectProof:
-                    !state.credentialVerificationStarted
                 }
             }
         }

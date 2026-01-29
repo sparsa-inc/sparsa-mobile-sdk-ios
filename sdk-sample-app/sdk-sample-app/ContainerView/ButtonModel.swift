@@ -20,10 +20,6 @@ enum SparsaButton: CaseIterable {
     case sendRecoveryEmail
     case setRecoveryEmail
     case deviceBootstrappingVerification
-    case checkBootstrappingStatus
-    case startCredentialVerificationProcess
-    case acceptProof
-    case rejectProof
     case proofProcess
     
     var title: String {
@@ -52,14 +48,6 @@ enum SparsaButton: CaseIterable {
             "Set Recovery Email"
         case .deviceBootstrappingVerification:
             "Device Bootstrapping Verification"
-        case .checkBootstrappingStatus:
-            "Check Bootstrapping Status"
-        case .startCredentialVerificationProcess:
-            "Start Credential Verification"
-        case .acceptProof:
-            "Accept Proof"
-        case .rejectProof:
-            "Reject Proof"
         case .proofProcess:
             "Proof Process"
         }
