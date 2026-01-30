@@ -125,6 +125,69 @@ All methods are available as both `async/await` and completion-handler variants.
 | `updateDeviceToken(token:)` | Register a push notification token (String). |
 | `updateDeviceToken(_:)` | Register an APNS device token (Data). |
 
+#### Expected Notification Payload
+
+The SDK expects an APNs payload with the following structure:
+
+```json
+{
+  "aps": {
+    "alert": {
+      "body": "Notification title text"
+    },
+    "data": {
+      "notificationType": "<type>",
+      "identifier": "<transaction-id>",
+      "correlationId": "<correlation-id>"
+    }
+  }
+}
+```
+
+#### Notification Types
+
+| Type | `notificationType` Value | Description |
+|------|--------------------------|-------------|
+| Credential Verification | `CredentialVerification` | Triggers a credential verification (proof) flow. Requires `identifier` pointing to the proof request. |
+| Delete Device | `DeleteDevice` | Indicates the current device was removed from the digital address. The SDK checks device status and invokes `onDelete` if the device no longer exists. |
+| Information | `Information` | Generic informational notification. No SDK action is taken. |
+| Test | `Test` | Test notification. No SDK action is taken. |
+
+#### Payload Fields
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `notificationType` | String | Yes | One of: `CredentialVerification`, `DeleteDevice`, `Information`, `Test`. |
+| `identifier` | String | For `CredentialVerification` | The proof request identifier. |
+| `correlationId` | String | No | Correlation ID for request tracking. |
+
+#### Integration Example
+
+```swift
+// In your AppDelegate or notification handler:
+func userNotificationCenter(
+    _ center: UNUserNotificationCenter,
+    willPresent notification: UNNotification,
+    withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void
+) {
+    Sparsa.shared.handleNotification(notification.request.content.userInfo,
+        onDelete: {
+            // Device was removed — clear local state, navigate to setup screen
+        },
+        onError: { error in
+            print("Notification error: \(error.localizedDescription)")
+        }
+    )
+    completionHandler([.sound, .badge])
+}
+
+// Register device token:
+func application(_ application: UIApplication,
+                 didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+    Sparsa.shared.updateDeviceToken(deviceToken)
+}
+```
+
 ### Localization & Recovery
 
 | Method | Description |
