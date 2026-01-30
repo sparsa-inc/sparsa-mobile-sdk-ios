@@ -1,6 +1,8 @@
 # Sparsa SDK - iOS
 
-This repository contains the Sparsa SDK for iOS and a sample application demonstrating its integration.
+The Sparsa SDK for iOS provides a native interface for managing digital identities, credentials, devices, and authentication flows on the Sparsa platform.
+
+This repository also includes a [sample application](./sdk-sample-app/) demonstrating SDK integration.
 
 ## Requirements
 
@@ -27,7 +29,7 @@ Alternatively, add it to your `Package.swift`:
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/sparsa-inc/sparsa-mobile-sdk-ios", from: "1.1.4")
+    .package(url: "https://github.com/sparsa-inc/sparsa-mobile-sdk-ios", from: "1.1.7")
 ]
 ```
 
@@ -50,46 +52,101 @@ Download the latest XCFramework from the [Releases](https://github.com/sparsa-in
 4. Make sure "Copy items if needed" is checked
 5. In your target's "Frameworks, Libraries, and Embedded Content" section, ensure SparsaSDK.xcframework is set to "Embed & Sign"
 
-### Sample App
-
-For a complete working example, see the [sample app](./sdk-sample-app/README.md) included in this repository.
-
 ## Quick Start
 
-1. Install the Sparsa SDK using one of the methods above
-2. Import the module in your code:
-   ```swift
-   import SparsaSDK
-   ```
-3. Configure the SDK:
-   ```swift
-   Task {
-       do {
-           try await Sparsa.shared.configure(
-               url: "BASE_URL",
-               clientId: "your-client-id",
-               clientSecret: "your-client-secret",
-               onDelete: { }
-           )
+### 1. Import the SDK
 
-           // Now you can use the SDK
-       } catch {
-           print("Error configuring SDK: \(error)")
-       }
-   }
-   ```
+```swift
+import SparsaSDK
+```
 
-## Features
+### 2. Configure
 
-- Secure user authentication
-- Digital identity management
-- Credential verification
+Before using any SDK functionality, configure it with your tenant credentials:
+
+```swift
+try await Sparsa.shared.configure(
+    url: "https://api.<environment>.sparsainc.com",
+    clientId: "your-client-id",
+    clientSecret: "your-client-secret",
+    onDelete: {
+        // Handle device removal from digital address
+    }
+)
+```
+
+### 3. Import a Digital Address
+
+```swift
+let auth = try await Sparsa.shared.importDigitalAddress(attributesJson)
+print(auth.digitalAddress)
+```
+
+## API Overview
+
+All methods are available as both `async/await` and completion-handler variants.
+
+### Configuration
+
+| Method | Description |
+|--------|-------------|
+| `configure(url:clientId:clientSecret:onDelete:)` | Initialize the SDK with tenant credentials. |
+
+### Digital Address
+
+| Method | Description |
+|--------|-------------|
+| `importDigitalAddress(_:)` | Import an existing digital address onto this device. |
+| `recoverDigitalAddress(_:)` | Recover a digital address via the recovery flow. |
+| `updateDigitalAddress(_:)` | Update the current digital address. |
+| `getDigitalAddress()` | Retrieve the current digital address. |
+
+### Credentials
+
+| Method | Description |
+|--------|-------------|
+| `getCredentials()` | Fetch all credentials. |
+| `getCredentials(with:and:)` | Fetch credentials filtered by status and type. |
+| `getCredentialDetails(identifier:)` | Get full details of a specific credential. |
+| `proofProcess(_:)` | Initiate a credential verification (proof) process. |
+
+### Devices
+
+| Method | Description |
+|--------|-------------|
+| `getDevices()` | List all devices linked to the digital address. |
+| `deleteDevice(deviceIdentifier:)` | Remove a device from the digital address. |
+| `deviceBootstrappingVerification(onBootstrappingData:)` | Link a new device via QR-based bootstrapping. |
+
+### Push Notifications
+
+| Method | Description |
+|--------|-------------|
+| `handleNotification(_:onDelete:onError:)` | Process an incoming push notification. |
+| `updateDeviceToken(token:)` | Register a push notification token (String). |
+| `updateDeviceToken(_:)` | Register an APNS device token (Data). |
+
+### Localization & Recovery
+
+| Method | Description |
+|--------|-------------|
+| `getLanguage()` | Get the current SDK language. |
+| `setLanguage(language:)` | Set the SDK language. |
+| `sendRecoveryEmail(email:)` | Send a recovery email. |
+| `setRecoveryEmail(email:)` | Set a new recovery email. |
+
+## Sample App
+
+The [sdk-sample-app](./sdk-sample-app/) directory contains a fully working iOS application that demonstrates:
+
+- SDK configuration and initialization
+- Digital address import and recovery
+- Credential listing and detail viewing
 - Device management
-- Biometric authentication support
+- Push notification handling
+- Device bootstrapping via QR code
 
-## Documentation
-
-For detailed documentation on how to use the Sparsa SDK, please refer to the [official documentation](https://sparsa-inc.github.io/sparsa-mobile-sdk-ios/documentation/sparsa).
+See the [sample app README](./sdk-sample-app/README.md) for setup instructions.
 
 ## License
 
