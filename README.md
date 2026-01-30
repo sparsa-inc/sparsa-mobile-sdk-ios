@@ -200,7 +200,3 @@ func application(_ application: UIApplication,
 ## Sample App
 
 For a complete working example, see the [sample app](./sdk-sample-app/) included in this repository.
-
-## License
-
-This SDK is proprietary software. Please contact the vendor for licensing information.
