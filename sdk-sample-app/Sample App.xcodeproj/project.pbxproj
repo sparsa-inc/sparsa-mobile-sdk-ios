@@ -7,24 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		662D3A2B2EEC0E58004DB963 /* Sparsa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 662D3A2A2EEC0E58004DB963 /* Sparsa.framework */; };
-		662D3A2C2EEC0E58004DB963 /* Sparsa.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 662D3A2A2EEC0E58004DB963 /* Sparsa.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		666C34352F2C0481002525F5 /* SparsaSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 666C34342F2C0481002525F5 /* SparsaSDK */; };
 		669287912EEAA9C40050AF28 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 669287902EEAA9C40050AF28 /* FirebaseMessaging */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		6600D0072ECF2C120036157F /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				662D3A2C2EEC0E58004DB963 /* Sparsa.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		662D347B2EB8C08A002A59B1 /* Sample App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Sample App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -58,8 +43,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				662D3A2B2EEC0E58004DB963 /* Sparsa.framework in Frameworks */,
 				669287912EEAA9C40050AF28 /* FirebaseMessaging in Frameworks */,
+				666C34352F2C0481002525F5 /* SparsaSDK in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -102,7 +87,6 @@
 				662D34772EB8C08A002A59B1 /* Sources */,
 				662D34782EB8C08A002A59B1 /* Frameworks */,
 				662D34792EB8C08A002A59B1 /* Resources */,
-				6600D0072ECF2C120036157F /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -114,6 +98,7 @@
 			name = "Sample App";
 			packageProductDependencies = (
 				669287902EEAA9C40050AF28 /* FirebaseMessaging */,
+				666C34342F2C0481002525F5 /* SparsaSDK */,
 			);
 			productName = Sparsa;
 			productReference = 662D347B2EB8C08A002A59B1 /* Sample App.app */;
@@ -145,6 +130,7 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				6692878F2EEAA9C30050AF28 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				666C34332F2C0481002525F5 /* XCRemoteSwiftPackageReference "sparsa-mobile-sdk-ios" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 9CAF10EF0C545BCB6084A24E /* Products */;
@@ -400,6 +386,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		666C34332F2C0481002525F5 /* XCRemoteSwiftPackageReference "sparsa-mobile-sdk-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/sparsa-inc/sparsa-mobile-sdk-ios.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 		6692878F2EEAA9C30050AF28 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
@@ -411,6 +405,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		666C34342F2C0481002525F5 /* SparsaSDK */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 666C34332F2C0481002525F5 /* XCRemoteSwiftPackageReference "sparsa-mobile-sdk-ios" */;
+			productName = SparsaSDK;
+		};
 		669287902EEAA9C40050AF28 /* FirebaseMessaging */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 6692878F2EEAA9C30050AF28 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;

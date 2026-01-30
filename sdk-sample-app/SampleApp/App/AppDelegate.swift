@@ -7,7 +7,7 @@
 
 import UIKit
 import SwiftUI
-import Sparsa
+import SparsaSDK
 import FirebaseCore
 import FirebaseMessaging
 
