@@ -2,7 +2,6 @@
 
 The Sparsa SDK for iOS provides a native interface for managing digital identities, credentials, devices, and authentication flows on the Sparsa platform.
 
-This repository also includes a [sample application](./sdk-sample-app/) demonstrating SDK integration.
 
 ## Requirements
 
@@ -137,16 +136,7 @@ All methods are available as both `async/await` and completion-handler variants.
 
 ## Sample App
 
-The [sdk-sample-app](./sdk-sample-app/) directory contains a fully working iOS application that demonstrates:
-
-- SDK configuration and initialization
-- Digital address import and recovery
-- Credential listing and detail viewing
-- Device management
-- Push notification handling
-- Device bootstrapping via QR code
-
-See the [sample app README](./sdk-sample-app/README.md) for setup instructions.
+For a complete working example, see the [sample app](./sdk-sample-app/) included in this repository.
 
 ## License
 
