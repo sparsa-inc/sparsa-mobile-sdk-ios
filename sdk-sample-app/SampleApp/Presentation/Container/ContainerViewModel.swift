@@ -16,7 +16,7 @@ class ContainerViewModel: NSObject, ObservableObject {
     //MARK: - Member properties
     let encoder = JSONEncoder()
     let userDefaults = UserDefaults.standard
-    let baseUrl = "https://exchange-api.dev.sparsainc.com"
+    let baseUrl = "BASE_URL"
     var cancellables = Set<AnyCancellable>()
     var fetchedCredentialsForFilter: [Credential] = []
     var filterResult: (statuses: Set<String>, schemaIds: Set<String>)? = nil
