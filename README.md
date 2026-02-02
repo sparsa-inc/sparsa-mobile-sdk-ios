@@ -199,8 +199,7 @@ func application(_ application: UIApplication,
 
 ## Documentation
 
-Full API reference is available at:
-[https://sparsa-inc.github.io/sparsa-mobile-sdk-ios/documentation/sparsa/sparsa](https://sparsa-inc.github.io/sparsa-mobile-sdk-ios/documentation/sparsa/sparsa)
+Full API reference is available [here](https://sparsa-inc.github.io/sparsa-mobile-sdk-ios/documentation/sparsa/sparsamobile).
 
 ## Sample App
 
