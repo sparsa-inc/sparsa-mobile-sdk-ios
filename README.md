@@ -197,6 +197,11 @@ func application(_ application: UIApplication,
 | `sendRecoveryEmail(email:)` | Send a recovery email. |
 | `setRecoveryEmail(email:)` | Set a new recovery email. |
 
+## Documentation
+
+Full API reference is available at:
+[https://sparsa-inc.github.io/sparsa-mobile-sdk-ios/documentation/sparsa/sparsa](https://sparsa-inc.github.io/sparsa-mobile-sdk-ios/documentation/sparsa/sparsa)
+
 ## Sample App
 
 For a complete working example, see the [sample app](./sdk-sample-app/) included in this repository.
