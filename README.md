@@ -66,7 +66,7 @@ Before using any SDK functionality, configure it with your tenant credentials:
 
 ```swift
 try await Sparsa.shared.configure(
-    url: "https://api.<environment>.sparsainc.com",
+    url: "BASE_URL",
     clientId: "your-client-id",
     clientSecret: "your-client-secret",
     onDelete: {
