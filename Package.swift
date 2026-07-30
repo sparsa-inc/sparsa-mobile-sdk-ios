@@ -15,8 +15,8 @@ let package = Package(
     targets: [
         .binaryTarget(
             name: "SparsaSDK",
-            url: "https://github.com/sparsa-inc/sparsa-mobile-sdk-ios/releases/download/v1.1.8/SparsaSDK.xcframework.zip",
-            checksum: "a3bad65ba1a4c4f0e603cacc3d775210ba6c4f406733887c67e6524bca81008b"
+            url: "https://github.com/sparsa-inc/sparsa-mobile-sdk-ios/releases/download/v1.2.0/SparsaSDK.xcframework.zip",
+            checksum: "b2e89fcb27babbb170948423bbe8764784bde40c6555dbf5cc9989e10677ac34"
         )
     ]
 )

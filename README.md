@@ -29,7 +29,7 @@ Alternatively, add it to your `Package.swift`:
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/sparsa-inc/sparsa-mobile-sdk-ios", from: "1.1.7")
+    .package(url: "https://github.com/sparsa-inc/sparsa-mobile-sdk-ios", from: "1.2.0")
 ]
 ```
 
@@ -197,6 +197,28 @@ func application(_ application: UIApplication,
 | `setLanguage(language:)` | Set the SDK language. |
 | `sendRecoveryEmail(email:)` | Send a recovery email. |
 | `setRecoveryEmail(email:)` | Set a new recovery email. |
+
+## App Identity and FIDO Registration
+
+FIDO identifies your app by its **bundle identifier**. At runtime the SDK derives an origin of the
+form:
+
+```
+ios:bundle-id:<your bundle identifier>
+```
+
+Sparsa must have that value registered before FIDO registration or authentication will succeed —
+otherwise the ceremony fails with a `FIDO process failed.` error. Send your app's bundle identifier
+to Sparsa to be registered.
+
+- **Changing the bundle identifier changes the app's FIDO identity.** A build with a different
+  `PRODUCT_BUNDLE_IDENTIFIER` is a different identity and must be registered separately.
+- **No signing certificate or keystore is involved** in the FIDO identity — it is the bundle
+  identifier alone. (This differs from Android, where the identity is derived from the signing
+  certificate.) A development team is still required to run on a device, but it does not affect the
+  origin.
+- **FIDO requires a physical device.** It uses the Secure Enclave, which the iOS Simulator does not
+  provide, so registration and authentication only work on real hardware.
 
 ## Documentation
 
