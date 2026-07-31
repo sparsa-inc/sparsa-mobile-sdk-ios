@@ -29,7 +29,7 @@ Alternatively, add it to your `Package.swift`:
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/sparsa-inc/sparsa-mobile-sdk-ios", from: "1.2.0")
+    .package(url: "https://github.com/sparsa-inc/sparsa-mobile-sdk-ios", from: "1.2.1")
 ]
 ```
 
