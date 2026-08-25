@@ -67,10 +67,10 @@ extension ContainerViewModel {
         self.showBottomSheet(items: credentials.compactMap { credential in
             let issuer = credential.issuer ?? ""
             let dateOnly = formatDateOnly(credential.issueDate ?? "")
-            return "\(credential.schema)\nIssuer: \(issuer)\nType: \(credential.schema)\nDate: \(dateOnly)"
+            return "\(credential.identifier ?? "")\nSchema: \(credential.schema)\nIssuer: \(issuer)\nType: \(credential.schema)\nDate: \(dateOnly)"
         }, selectable: true)
         guard let identifier = await self.waitForUserSelection()?.prefix(while: { !$0.isNewline }) else { return nil }
-        return credentials.first(where: { $0.schema == identifier })
+        return credentials.first(where: { ($0.identifier ?? "") == identifier })
     }
 
     private func formatDateOnly(_ dateString: String) -> String {
@@ -199,7 +199,7 @@ extension ContainerViewModel {
 extension ContainerViewModel {
     
     func showBottomSheet(items: [String], selectable: Bool = false) {
-        DispatchQueue.main.async { [weak self] in
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
             self?.uiState.selectedItem = nil
             self?.uiState.chooserList = items
             self?.uiState.showBottomSheet = true
