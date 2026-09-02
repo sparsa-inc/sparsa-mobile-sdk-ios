@@ -2,7 +2,7 @@
 
 The Sparsa SDK for iOS provides a native interface for managing digital identities, credentials, devices, and authentication flows on the Sparsa platform.
 
-[API Reference](https://sparsa-inc.github.io/sparsa-mobile-sdk-ios/documentation/sparsa/sparsamobile)
+[API Reference](https://sparsa-inc.github.io/sparsa-mobile-sdk-ios/documentation/sparsasdk)
 
 ## Requirements
 
@@ -29,7 +29,7 @@ Alternatively, add it to your `Package.swift`:
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/sparsa-inc/sparsa-mobile-sdk-ios", from: "1.2.4")
+    .package(url: "https://github.com/sparsa-inc/sparsa-mobile-sdk-ios", from: "1.2.5")
 ]
 ```
 
@@ -222,7 +222,7 @@ to Sparsa to be registered.
 
 ## Documentation
 
-Full API reference is available [here](https://sparsa-inc.github.io/sparsa-mobile-sdk-ios/documentation/sparsa/sparsamobile).
+Full API reference is available [here](https://sparsa-inc.github.io/sparsa-mobile-sdk-ios/documentation/sparsasdk).
 
 ## Sample App
 
