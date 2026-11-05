@@ -7,8 +7,13 @@ The Sparsa SDK for iOS provides a native interface for managing digital identiti
 ## Requirements
 
 - iOS 15.0+
-- Swift 5.9+
-- Xcode 15.0+
+- Xcode 26.0+
+- Swift 5.9+ (language mode)
+
+> **Xcode 26.0 is a hard minimum, not a recommendation.** `SparsaSDK.xcframework` ships a
+> Swift module interface built with Swift 6.2, and Xcode refuses to import a binary
+> framework produced by a compiler newer than its own. On an older Xcode the build fails
+> with *"Failed to build module 'SparsaSDK'; this SDK is not supported by the compiler"*.
 
 ## Installation
 
